@@ -1,6 +1,7 @@
 Firmware designed and coded by: Froggy814 on 68kmla and Tinkerdifferent, (Disclaimer, AI was NOT used in this project. Not one lick of it)
 Copyright info: Ask before you use, I either give consent or no. And read the license. (If I say no you cannot use it.)
 Date: 11/18/2026
+Rev: 2
 
 How to install USB-K-P V0.0.1
 
@@ -8,7 +9,9 @@ First flash the ESP32 with the ino. You use Arduino IDE to flash. You also need 
 
 Inside the external directory from where you got this file is the library that you need to copy/paste into your Arduino/libraries folder. On Windows that is usually in Documents. On Linux it is in Home. (I don't know about macs)
 
-Now that you have flashed the firmware grab your Macintosh Portable Keyboard and wire it up. Here is how to wire it (on the left is the pin definition in the schematic, and on the right is the GPIO on the ESP32 I have the firmware set to):
+If you do not have the pinout to the Macintosh Portable Keyboard there is the photo in the hardware directory to help you if needed.
+
+Now that you have flashed the firmware grab your Macintosh Portable Keyboard and wire it up. Here is how to wire it (on the left is the pin definition, and on the right is the GPIO on the ESP32 I have the firmware set to):
 
 x0 - 4,
 x1 - 5,
@@ -20,7 +23,7 @@ x6 - 17,
 x7 - 18,
 x8 - 8,
 x9 - 3,
-x10 - 46,    (Change this pin to another one otherwise you will have problems)
+x10 - 37
 
 and the y's,
 
