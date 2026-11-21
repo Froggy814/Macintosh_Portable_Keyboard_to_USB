@@ -11,7 +11,9 @@ The list of tihngs I want to add to this project to make it complete is quite sm
 3. Case
 4. ADB support
 5. App to switch between the three???
+
 more later...
+
 6. Add Trackball and/or numpad to the Case and make them communicate as well...
 
 That's a short list. Should be possible, I only have 3 things left...
