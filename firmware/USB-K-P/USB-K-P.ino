@@ -9,6 +9,14 @@ USBHIDKeyboard Keyboard;
 #define optn 39
 #define cmd 38
 
+
+bool capslock1 = HIGH;
+bool shift1 = HIGH;
+bool ctrl1 = HIGH;
+bool optn1 = HIGH;
+bool cmd1 = HIGH;
+
+
 const byte ROWS = 11;  //four rows
 const byte COLS = 8;   //four columns
 byte rowPins[ROWS] = { 4, 5, 6, 7, 15, 16, 17, 18, 8, 3, 37 };
@@ -27,7 +35,7 @@ char hexaKeys[ROWS][COLS] = {
   /* X10 */ { '=', '-', '0', 'o', 0, KEY_RETURN, '.', 0 }
 };
 
-Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS );
+Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 
 void setup() {
   Serial.begin(115200);
@@ -52,36 +60,46 @@ void loop() {
 
 
 void specialKeys() {
-  if (digitalRead(ctrl) == LOW) {
+
+  if (digitalRead(ctrl) == LOW && ctrl1 == HIGH) {
     Keyboard.press(KEY_LEFT_CTRL);
     Serial.println("CTRL");
-  } else {
+    ctrl1 = LOW;
+  } else if (digitalRead(ctrl) == HIGH && ctrl1 == LOW) {
     Keyboard.release(KEY_LEFT_CTRL);
+    ctrl1 = HIGH;
   }
-  if (digitalRead(cmd) == LOW) {
+  if (digitalRead(cmd) == LOW && cmd1 == HIGH) {
     Keyboard.press(KEY_LEFT_GUI);
     Serial.println("CMD");
-  } else {
+    cmd1 = LOW;
+  } else if (digitalRead(cmd) == HIGH && cmd1 == LOW) {
     Keyboard.release(KEY_LEFT_GUI);
+    cmd1 = HIGH;
   }
-  if (digitalRead(optn) == LOW) {
+  if (digitalRead(optn) == LOW && optn1 == HIGH) {
     Keyboard.press(KEY_LEFT_ALT);
     Serial.println("OPTION");
-  } else {
+    optn1 = LOW;
+  } else if (digitalRead(optn) == HIGH && optn1 == LOW) {
     Keyboard.release(KEY_LEFT_ALT);
+    optn1 = HIGH;
   }
-  if (digitalRead(shift) == LOW) {
+  if (digitalRead(shift) == LOW && shift1 == HIGH) {
     Keyboard.press(KEY_LEFT_SHIFT);
     Serial.println("SHIFT");
-  } else {
+    shift1 = LOW;
+  } else if (digitalRead(shift) == HIGH && shift1 == LOW) {
     Keyboard.release(KEY_LEFT_SHIFT);
+    shift1 = HIGH;
   }
-  if (digitalRead(capslock) == LOW) {
+  if (digitalRead(capslock) == LOW && capslock1 == HIGH) {
     Keyboard.press(KEY_CAPS_LOCK);
     Serial.println("CAPS");
-
-  } else {
+    capslock1 = LOW;
+  } else if (digitalRead(capslock) == HIGH && capslock1 == LOW) {
     Keyboard.release(KEY_CAPS_LOCK);
+    capslock1 = HIGH;
   }
 }
 
