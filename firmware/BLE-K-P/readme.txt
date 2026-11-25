@@ -9,7 +9,7 @@ First flash the ESP32 with the ino. You use Arduino IDE to flash. You also need 
 
 Inside the external directory from where you got this file are the libraries that you need to copy/paste into your Arduino/libraries folder. On Windows that is usually in Documents. On Linux it is in Home. (I don't know about macs) Then it will compile.
 
-If you do not have the pinout to the Macintosh Portable Keyboard there is a photo in the hardware directory, that shows the pinout; to help you if needed.
+If you do not have the pinout to the Macintosh Portable Pheripherals connector there is a photo in the hardware directory, that shows the pinout; to help you if needed.
 
 Now that you have flashed the firmware grab your Macintosh Portable Keyboard and wire it up. Here is how to wire it (on the left is the pin definition, and on the right is the GPIO on the ESP32 I have the firmware set to):
 

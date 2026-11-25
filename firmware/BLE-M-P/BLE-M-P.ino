@@ -1,0 +1,66 @@
+#include "adb.h"
+#include <HijelHID_BLEMouse.h>
+
+HijelBLEMouse mouse("Mac Portable Mouse", "Frogtronics");
+
+
+unsigned long previousMillis = 0;
+unsigned long interval = 2;
+
+bool mouse_present = false;
+
+void setup() {
+
+  Serial.begin(115200);
+
+  mouse.begin();
+
+  // Set up the ADB bus
+  adb_init();
+
+  delay(1000);  // A wait for good measure, apparently AEKII can take a moment to reset
+
+  // Initialise the ADB devices
+  bool error = false;
+
+  if (!error) mouse_present = true;
+}
+
+void mouse_handler() {
+
+  static bool last_btn = false;
+  bool error = false;
+  auto mouse_data = adb_mouse_read_data(&error);
+
+
+  if (error) return;
+
+  int8_t mouse_x = ADB_MOUSE_CONV_AXIS(mouse_data.data.x_offset);
+  int8_t mouse_y = ADB_MOUSE_CONV_AXIS(mouse_data.data.y_offset);
+  bool btn_pressed = !(mouse_data.raw & 0x8000);
+
+
+
+  if (btn_pressed != last_btn) {
+    if (btn_pressed) mouse.press(MouseButton::Left);
+    else mouse.release(MouseButton::Left);
+    last_btn = btn_pressed;
+  }
+
+  if (mouse_x != 0 || mouse_y != 0) {
+    mouse.move(mouse_x, mouse_y);
+    Serial.println(mouse_x, mouse_y);
+  }
+}
+
+
+void loop() {
+  unsigned long currentMillis = millis();
+
+  if (mouse_present && mouse.isPaired()) {
+    if (currentMillis - previousMillis > interval) {
+      previousMillis = currentMillis;
+      mouse_handler();
+    }
+  }
+}
